@@ -80,4 +80,14 @@ def get_detected_urls(ip):
 	except Exception as e:
 		print e 
 	return associated_samples
-
+	
+if __name__ == "__main__":
+	ip = '37.139.47.105'
+	'''
+	print get_detected_urls(ip)
+	print get_country(ip)
+	print get_as_owner(ip)
+	print get_asn(ip)'''
+	
+	#print get_detected_communicating_samples(ip)
+	print get_country(ip)

@@ -68,7 +68,6 @@ def to_entity(query_result):
 		me.addUIMessage("[INFO] No new entities found.")
 		return None
 	
-	me.addUIMessage("[INFO] %s" % values)
 	
 	# Hash
 	if entity_type == "samples":
@@ -78,7 +77,7 @@ def to_entity(query_result):
 	# URL
 	if entity_type == "urls":
 		for url, scan_date, positives in values:
-			me.addEntity("maltego.Website", url)
+			me.addEntity("maltego.Website", str(url))
 
 	# IP
 	if entity_type == "ip":
