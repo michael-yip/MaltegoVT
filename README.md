@@ -18,7 +18,8 @@ Functions available:
   get_country  
   get_as_owner  
   get_asn  
-  get_detected_urls  
+  get_detected_urls
+  get_domain_resolutions  
   
 3) File (below functions are merged into one transform to enrich a given SHA256):  
   get_md5  
@@ -27,6 +28,10 @@ Functions available:
   get_positives  
 
 = Requirement =  
-  +1 VirusTotal Public API key  
+  + VirusTotal Public API key
+
+= Installation (using the Maltego configuration file) = 
+  1) Place content from this reposition in the path C:/Maltego Transforms/MaltegoVTPublic/
+  2) Open Maltego and import the configuration file named "MaltegoVTPub.mtz"
 
 Note: the file named 'gc' is a file "mutex" used to keep track of daily garbage collection on cached queries.
