@@ -30,8 +30,8 @@ Functions available:
 = Requirement =  
   + VirusTotal Public API key
 
-= Installation (using the Maltego configuration file) = 
-  1) Place content from this reposition in the path C:/Maltego Transforms/MaltegoVTPublic/
-  2) Open Maltego and import the configuration file named "MaltegoVTPub.mtz"
+= Installation (using the Maltego configuration file) =  
+  1) Place content from this reposition in the path C:/Maltego Transforms/MaltegoVTPublic/  
+  2) Open Maltego and import the configuration file named "MaltegoVTPub.mtz"  
 
 Note: the file named 'gc' is a file "mutex" used to keep track of daily garbage collection on cached queries.
