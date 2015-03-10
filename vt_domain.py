@@ -112,7 +112,7 @@ def get_subdomains(domain):
 	# WHOIS
 	return vt_response['subdomains']
 	
-def get_resolutions(domain):
+def get_ip_resolutions(domain):
 	''' Get passive DNS data. '''
 	# Get VT response
 	vt_response = domain_lookup(domain)
