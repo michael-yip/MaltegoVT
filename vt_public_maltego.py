@@ -6,8 +6,8 @@
 # Date: 08/03/2015
 #############################################
 
-from vt_domain import whois, get_registrant_email, get_registrar, get_resolutions, get_detected_urls_domain, get_name_servers, get_subdomains
-from vt_ip import get_asn, get_as_owner, get_country, get_detected_communicating_samples, get_detected_urls
+from vt_domain import whois, get_registrant_email, get_registrar, get_ip_resolutions, get_detected_urls_domain, get_name_servers, get_subdomains
+from vt_ip import get_asn, get_as_owner, get_country, get_detected_communicating_samples, get_detected_urls, get_domain_resolutions
 from vt_file import get_positives, get_permalink, get_scans, get_md5
 from MaltegoTransform import * 
 import sys 
@@ -22,6 +22,7 @@ def query_ip(query, ip):
 				'get_as_owner' : ('as_owner', get_as_owner(ip)),
 				'get_asn' : ('as', get_asn(ip)),
 				'get_detected_urls' : ('urls', get_detected_urls(ip)),
+				'get_resolutions'	:  ('domains', get_domain_resolutions(ip))
 			}[query]
 			
 # Domain
@@ -31,7 +32,7 @@ def query_domain(query, domain):
 	return {
 				'get_registrant_email' : ('email', get_registrant_email(domain)),
 				'get_registrar' : ('registrar', get_registrar(domain)),
-				'get_resolutions' : ('ip', get_resolutions(domain)),
+				'get_resolutions' : ('ip', get_ip_resolutions(domain)),
 				'get_name_servers' : ('ns', get_name_servers(domain)),
 				'get_detected_urls' : ('urls', get_detected_urls_domain(domain)),
 				'get_subdomains': ('subdomains', get_subdomains(domain)),
@@ -90,7 +91,12 @@ def to_entity(query_result):
 		name_servers, timestamp = values
 		for name_server in name_servers:
 			me.addEntity("maltego.NSRecord", name_server)
-
+	
+	# Domains
+	if entity_type == "domains":
+		for website in values:
+			me.addEntity("maltego.Domain", website)
+			
 	# Subdomains
 	if entity_type == "subdomains":
 		for website in values:
