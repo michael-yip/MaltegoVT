@@ -94,8 +94,8 @@ def to_entity(query_result):
 	
 	# Domains
 	if entity_type == "domains":
-		for website in values:
-			me.addEntity("maltego.Domain", website)
+		for domain, timesamp in values:
+			me.addEntity("maltego.Domain", domain)
 			
 	# Subdomains
 	if entity_type == "subdomains":

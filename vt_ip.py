@@ -50,7 +50,7 @@ def get_country(ip):
 	vt_response = ip_lookup(ip)
 	return vt_response['country']
 	
-def get_resolutions(ip):
+def get_domain_resolutions(ip):
 	''' Returns country of IP '''
 	# Get VT response
 	vt_response = ip_lookup(ip)
@@ -58,7 +58,7 @@ def get_resolutions(ip):
 	resolution_pairs = []
 	for resolution in resolutions:
 		resolution_pairs.append( ( resolution['hostname'], resolution['last_resolved'] ) )
-	return resolutions
+	return resolution_pairs
 
 def get_detected_communicating_samples(ip):
 	''' Return list of detected samples communicating to this IP. '''
@@ -81,13 +81,7 @@ def get_detected_urls(ip):
 		print e 
 	return associated_samples
 	
-if __name__ == "__main__":
-	ip = '37.139.47.105'
-	'''
-	print get_detected_urls(ip)
-	print get_country(ip)
-	print get_as_owner(ip)
-	print get_asn(ip)'''
 	
-	#print get_detected_communicating_samples(ip)
-	print get_country(ip)
+if __name__ == '__main__':
+	ip = '85.195.82.53'
+	print get_domain_resolutions(ip)
