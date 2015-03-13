@@ -8,7 +8,7 @@
 import json
 import urllib
 import datetime
-from vt_miscellaneous import API_KEY, load_cache, dump_cache
+from vt_util import API_KEY, load_cache, dump_cache
 
 domain_query_url = 'https://www.virustotal.com/vtapi/v2/domain/report'
 
