@@ -85,7 +85,4 @@ def get_detected_urls(ip):
 		print e 
 	return associated_samples
 	
-	
-if __name__ == '__main__':
-	ip = '85.195.82.53'
-	print get_domain_resolutions(ip)
+
