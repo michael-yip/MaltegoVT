@@ -64,5 +64,5 @@ def dump_cache(term, json):
 				pickle.dump(json, cache_file)
 				return True
 	except Exception as e:
-		print e
+		pass
 	return False

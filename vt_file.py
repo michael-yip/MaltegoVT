@@ -48,7 +48,6 @@ def get_scans(sample):
 	''' Returns scan results '''
 	# Get VT response
 	vt_response = sample_lookup(sample)
-	#"scans": {"nProtect": {"detected": true, "version": "2010-05-14.01", "result": "Trojan.Generic.3611249", "update": "20100514"},}
 	return vt_response['scans'], vt_response['scan_date']
 
 def get_permalink(sample):

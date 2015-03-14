@@ -63,10 +63,14 @@ def get_domain_resolutions(ip):
 def get_detected_communicating_samples(ip):
 	''' Return list of detected samples communicating to this IP. '''
 	vt_response = ip_lookup(ip)
-	samples = vt_response['detected_communicating_samples']
 	associated_samples = []
-	for sample in samples:
-		associated_samples.append( ( sample['sha256'], sample['date'], sample['positives'] ) )
+	try: # 'detected_communicating_samples' is not returned in JSON if no samples found
+		samples = vt_response['detected_communicating_samples']
+		
+		for sample in samples:
+			associated_samples.append( ( sample['sha256'], sample['date'], sample['positives'] ) )
+	except:
+		pass
 	return associated_samples
 	
 def get_detected_urls(ip):
@@ -81,7 +85,4 @@ def get_detected_urls(ip):
 		print e 
 	return associated_samples
 	
-	
-if __name__ == '__main__':
-	ip = '85.195.82.53'
-	print get_domain_resolutions(ip)
+
