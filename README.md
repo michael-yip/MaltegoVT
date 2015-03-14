@@ -8,7 +8,7 @@ Functions available:
 1) Domain:  
   get_registrant_email  
   get_registrar  
-  get_resolutions  
+  get_ip_resolutions    
   get_name_servers  
   get_detected_urls_domain  
   get_subdomains  
@@ -18,6 +18,7 @@ Functions available:
   get_country  
   get_as_owner  
   get_asn  
+  get_domain_resolutions  
   get_detected_urls
   get_domain_resolutions  
   
