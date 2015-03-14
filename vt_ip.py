@@ -28,7 +28,7 @@ def ip_lookup(ip):
 		
 		# Cache results
 		dump_cache(ip, response_dict)
-	except Exception as e:
+	except:
 		exit(e)
 	return response_dict
 
@@ -36,35 +36,54 @@ def get_asn(ip):
 	''' Returns ASN of IP. '''
 	# Get VT response
 	vt_response = ip_lookup(ip)
-	return vt_response['asn']
+	asn = ""
+	try:
+		asn = vt_response['asn']
+	except:
+		pass
+		
+	return asn
 	
 def get_as_owner(ip):
 	''' Returns owner of AS. '''
 	# Get VT response
 	vt_response = ip_lookup(ip)
-	return vt_response['as_owner']
+	as_owner = ""
+	try:
+		as_owner = vt_response['as_owner']
+	except:
+		pass
+	return as_owner
 	
 def get_country(ip):
 	''' Returns country of IP '''
 	# Get VT response
 	vt_response = ip_lookup(ip)
-	return vt_response['country']
+	c = ""
+	try:
+		c = vt_response['country']
+	except:
+		pass
+	return c
 	
 def get_domain_resolutions(ip):
 	''' Returns country of IP '''
 	# Get VT response
 	vt_response = ip_lookup(ip)
-	resolutions = vt_response['resolutions']
 	resolution_pairs = []
-	for resolution in resolutions:
-		resolution_pairs.append( ( resolution['hostname'], resolution['last_resolved'] ) )
+	try:
+		resolutions = vt_response['resolutions']
+		for resolution in resolutions:
+			resolution_pairs.append( ( resolution['hostname'], resolution['last_resolved'] ) )
+	except:
+		pass
 	return resolution_pairs
 
 def get_detected_communicating_samples(ip):
 	''' Return list of detected samples communicating to this IP. '''
 	vt_response = ip_lookup(ip)
 	associated_samples = []
-	try: # 'detected_communicating_samples' is not returned in JSON if no samples found
+	try:
 		samples = vt_response['detected_communicating_samples']
 		
 		for sample in samples:
@@ -81,8 +100,6 @@ def get_detected_urls(ip):
 		samples = vt_response['detected_urls']
 		for sample in samples:
 			associated_samples.append( ( sample['url'], sample['scan_date'] , sample['positives'] ) )
-	except Exception as e:
-		print e 
+	except:
+		pass
 	return associated_samples
-	
-

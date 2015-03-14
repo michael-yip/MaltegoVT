@@ -39,22 +39,24 @@ def whois(domain):
 	'''
 	# Get VT response
 	vt_response = domain_lookup(domain)
-	
-	# WHOIS
-	whois_string = vt_response['whois']
-	whois_lines = whois_string.split("\n")
 	whois_dict = {}
-	for line in whois_lines:
-		if line.find(":") > -1:
-			line_s = line.split(":")
-			k = line_s[0].strip()
-			v = line_s[1].strip()
-			if k in whois_dict.keys():
-				values = whois_dict[k]
-				values.append(v)
-				whois_dict[k] = values
-			else:
-				whois_dict[k] = [v]
+	try:
+		# WHOIS
+		whois_string = vt_response['whois']
+		whois_lines = whois_string.split("\n")
+		for line in whois_lines:
+			if line.find(":") > -1:
+				line_s = line.split(":")
+				k = line_s[0].strip()
+				v = line_s[1].strip()
+				if k in whois_dict.keys():
+					values = whois_dict[k]
+					values.append(v)
+					whois_dict[k] = values
+				else:
+					whois_dict[k] = [v]
+	except:
+		pass
 	return whois_dict, vt_response
 	
 def get_registrant_email(domain):
@@ -95,12 +97,16 @@ def get_registrar(domain):
 	# Get VT response
 	whois_dict, vt_response = whois(domain)
 	registrar = ""
-	for k,v in whois_dict.items():
-		k = k.lower().strip()
-		if k == 'registrar':
-			registrar = v[0].upper()
-			break
-	whois_timestamp = vt_response['whois_timestamp']
+	whois_timestamp = ""
+	try:
+		for k,v in whois_dict.items():
+			k = k.lower().strip()
+			if k == 'registrar':
+				registrar = v[0].upper()
+				break
+		whois_timestamp = vt_response['whois_timestamp']
+	except:
+		pass
 	if len(registrar) == 0:
 		return ""
 	return registrar, __get_timestamp(whois_timestamp)
@@ -109,17 +115,26 @@ def get_subdomains(domain):
 	''' Get subdomains. '''
 	# Get VT response
 	vt_response = domain_lookup(domain)
+	subdomains = []
+	try:
+		subdomains = vt_response['subdomains']
+	except:
+		pass
 	# WHOIS
-	return vt_response['subdomains']
+	return subdomains
 	
 def get_ip_resolutions(domain):
 	''' Get passive DNS data. '''
 	# Get VT response
 	vt_response = domain_lookup(domain)
-	resolutions = vt_response['resolutions']
 	resolution_pairs = []
-	for resolution in resolutions:
-		resolution_pairs.append( (resolution['ip_address'], resolution['last_resolved']) )
+	try:
+		resolutions = vt_response['resolutions']
+		resolution_pairs = []
+		for resolution in resolutions:
+			resolution_pairs.append( (resolution['ip_address'], resolution['last_resolved']) )
+	except:
+		pass
 	return resolution_pairs
 	
 def get_detected_urls_domain(domain):
@@ -129,10 +144,9 @@ def get_detected_urls_domain(domain):
 	detected_url_list = []
 	try:
 		detected_urls = vt_response['detected_urls']
-		
 		for detected_url in detected_urls:
 			detected_url_list.append( (detected_url['url'], detected_url['scan_date'], detected_url['positives']) )
-	except Exception as e:
+	except:
 		pass
 	return detected_url_list
 
