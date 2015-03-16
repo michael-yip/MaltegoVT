@@ -28,7 +28,7 @@ def ip_lookup(ip):
 		
 		# Cache results
 		dump_cache(ip, response_dict)
-	except:
+	except Exception as e:
 		exit(e)
 	return response_dict
 
