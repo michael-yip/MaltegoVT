@@ -37,3 +37,5 @@ Functions available:
   3) Place your VirusTotal API key in vt_util.py
 
 Note: the file named 'gc' is a file "mutex" used to keep track of daily garbage collection on cached queries.
+
+If you have any problems, message me on Twitter: https://twitter.com/michael_yip :-)
