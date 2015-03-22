@@ -40,8 +40,7 @@ def get_asn(ip):
 	try:
 		asn = vt_response['asn']
 	except:
-		pass
-		
+		return ""
 	return asn
 	
 def get_as_owner(ip):
@@ -52,7 +51,7 @@ def get_as_owner(ip):
 	try:
 		as_owner = vt_response['as_owner']
 	except:
-		pass
+		return ""
 	return as_owner
 	
 def get_country(ip):
@@ -63,7 +62,7 @@ def get_country(ip):
 	try:
 		c = vt_response['country']
 	except:
-		pass
+		return ""
 	return c
 	
 def get_domain_resolutions(ip):
@@ -76,7 +75,7 @@ def get_domain_resolutions(ip):
 		for resolution in resolutions:
 			resolution_pairs.append( ( resolution['hostname'], resolution['last_resolved'] ) )
 	except:
-		pass
+		return []
 	return resolution_pairs
 
 def get_detected_communicating_samples(ip):
@@ -85,11 +84,10 @@ def get_detected_communicating_samples(ip):
 	associated_samples = []
 	try:
 		samples = vt_response['detected_communicating_samples']
-		
 		for sample in samples:
 			associated_samples.append( ( sample['sha256'], sample['date'], sample['positives'] ) )
 	except:
-		pass
+		return []
 	return associated_samples
 	
 def get_detected_urls(ip):
@@ -101,5 +99,5 @@ def get_detected_urls(ip):
 		for sample in samples:
 			associated_samples.append( ( sample['url'], sample['scan_date'] , sample['positives'] ) )
 	except:
-		pass
+		return []
 	return associated_samples

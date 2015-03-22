@@ -56,41 +56,54 @@ def whois(domain):
 				else:
 					whois_dict[k] = [v]
 	except:
-		pass
+		return {}, {}
 	return whois_dict, vt_response
 	
 def get_registrant_email(domain):
 	''' Get WHOIS registrant email. '''
-	
+	# Prettify string for VT
+	if len(domain) > 0:
+		domain = domain.strip().lower()
 	# Get VT response
 	whois_dict, vt_response = whois(domain)
-
+	whois_timestamp = ""
 	registrant_email = ""
-	for k,v in whois_dict.items():
-		k = k.lower().strip()
-		if k.find("registrant") > -1 and k.find("email") > -1:
-			registrant_email = v[0]
-			break
-	whois_timestamp = vt_response['whois_timestamp']
+	try:
+		for k,v in whois_dict.items():
+			k = k.lower().strip()
+			if k.find("registrant") > -1 and k.find("email") > -1:
+				registrant_email = v[0]
+				break
+		if 'whois_timestamp' in vt_response.keys():
+			whois_timestamp = vt_response['whois_timestamp']
+			whois_timestamp = __get_timestamp(whois_timestamp)
+	except:
+		return "",""
 	if len(registrant_email) == 0:
-		return ""
-	return registrant_email, __get_timestamp(whois_timestamp)
+			return ""
+	return registrant_email, whois_timestamp
 	
 def get_name_servers(domain):
 	''' Get name servers. '''
 	# Get VT response
 	whois_dict, vt_response = whois(domain)
-
+	whois_timestamp = ""
 	name_servers = []
-	for k,v in whois_dict.items():
-		k = k.lower().strip()
-		if k.find("name server") > -1:
-			name_servers = v
-			break
-	whois_timestamp = vt_response['whois_timestamp']
-	if len(name_servers) == 0:
+	try:
+		for k,v in whois_dict.items():
+			k = k.lower().strip()
+			if k.find("name server") > -1:
+				name_servers = v
+				break
+		# Get WHOIS resolution timestamp
+		if 'whois_timestamp' in vt_response.keys():
+			whois_timestamp = vt_response['whois_timestamp']
+			whois_timestamp = __get_timestamp(whois_timestamp)
+	except:
 		return []
-	return name_servers, __get_timestamp(whois_timestamp)
+	if len(name_servers) == 0:
+			return [],""
+	return name_servers, whois_timestamp
 
 def get_registrar(domain):
 	''' Get WHOIS registrant email. '''
@@ -104,12 +117,14 @@ def get_registrar(domain):
 			if k == 'registrar':
 				registrar = v[0].upper()
 				break
-		whois_timestamp = vt_response['whois_timestamp']
+		if 'whois_timestamp' in vt_response.keys():
+			whois_timestamp = vt_response['whois_timestamp']
+			whois_timestamp = __get_timestamp(whois_timestamp)
 	except:
-		pass
+		return "",""
 	if len(registrar) == 0:
-		return ""
-	return registrar, __get_timestamp(whois_timestamp)
+		return "",""
+	return registrar, whois_timestamp
 	
 def get_subdomains(domain):
 	''' Get subdomains. '''
@@ -119,7 +134,7 @@ def get_subdomains(domain):
 	try:
 		subdomains = vt_response['subdomains']
 	except:
-		pass
+		return []
 	# WHOIS
 	return subdomains
 	
@@ -134,7 +149,7 @@ def get_ip_resolutions(domain):
 		for resolution in resolutions:
 			resolution_pairs.append( (resolution['ip_address'], resolution['last_resolved']) )
 	except:
-		pass
+		return []
 	return resolution_pairs
 	
 def get_detected_urls_domain(domain):
@@ -147,12 +162,10 @@ def get_detected_urls_domain(domain):
 		for detected_url in detected_urls:
 			detected_url_list.append( (detected_url['url'], detected_url['scan_date'], detected_url['positives']) )
 	except:
-		pass
+		return []
 	return detected_url_list
 
 def __get_timestamp(seconds):
 	''' Convert seconds into timestamp. '''
 	s = seconds
 	return datetime.datetime.fromtimestamp(s).strftime('%Y-%m-%d %H:%M:%S')
-
-	

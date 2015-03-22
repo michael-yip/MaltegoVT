@@ -65,11 +65,15 @@ def to_entity(query_result):
 	entity_type, values = query_result
 	
 	# No value - return none
-	if len(values) == 0: 
+	if len(values) == 0: # for both single string or list of entities
 		me.addUIMessage("[INFO] No new entities found.")
 		return None
-	
-	
+	elif len(values) == 2: # entities,timestamp
+		entities, timestamp = values
+		if len(entities) == 0:
+			me.addUIMessage("[INFO] No new entities found.")
+			return None
+			
 	# Hash
 	if entity_type == "samples":
 		for sample, scan_date, positives in values:
@@ -140,10 +144,10 @@ if __name__ == "__main__":
 	# Maltego Transform object
 	me = MaltegoTransform() 
 	
-	me.addUIMessage("[INFO] Querying...")
-	me.addUIMessage("[INFO] Entity type: %s..." % entity_type)
-	me.addUIMessage("[INFO] Query: %s..." % query)
+	me.addUIMessage("[INFO] Querying VirusTotal...")
+	me.addUIMessage("[INFO] Input entity type: %s..." % entity_type)
 	me.addUIMessage("[INFO] Value: %s..." % value)
+	me.addUIMessage("[INFO] Query: %s..." % query)
 	
 	# To Maltego entity
 	if entity_type == 'ip':

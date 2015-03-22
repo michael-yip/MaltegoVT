@@ -40,7 +40,7 @@ def get_md5(sample):
 	try:
 		md5 = vt_response['md5']
 	except:
-		pass
+		return ""
 	return md5
 	
 def get_positives(sample):
@@ -55,7 +55,7 @@ def get_positives(sample):
 		total = vt_response['total']
 		scan_date = vt_response['scan_date']
 	except:
-		pass	
+		return	0,0,""
 	return positives, total, scan_date
 	
 def get_scans(sample):
@@ -68,7 +68,7 @@ def get_scans(sample):
 		scans = vt_response['scans']
 		scan_date = vt_response['scan_date']
 	except:
-		pass
+		return [], ""
 	return scans, scan_date
 
 def get_permalink(sample):
@@ -79,5 +79,5 @@ def get_permalink(sample):
 	try:
 		permalink = vt_response['permalink']
 	except:
-		pass
+		""
 	return permalink
