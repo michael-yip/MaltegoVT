@@ -48,7 +48,7 @@ def whois(domain):
 			if line.find(":") > -1:
 				line_s = line.split(":")
 				k = line_s[0].strip()
-				v = line_s[1].strip()
+				v = line_s[1].strip().upper()
 				if k in whois_dict.keys():
 					values = whois_dict[k]
 					values.append(v)
@@ -81,7 +81,7 @@ def get_registrant_email(domain):
 		return "",""
 	if len(registrant_email) == 0:
 			return ""
-	return registrant_email, whois_timestamp
+	return registrant_email.lower(), whois_timestamp
 	
 def get_name_servers(domain):
 	''' Get name servers. '''

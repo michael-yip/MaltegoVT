@@ -50,6 +50,8 @@ def get_as_owner(ip):
 	as_owner = ""
 	try:
 		as_owner = vt_response['as_owner']
+		if as_owner:
+			as_owner = as_owner.upper()
 	except:
 		return ""
 	return as_owner
@@ -61,6 +63,8 @@ def get_country(ip):
 	c = ""
 	try:
 		c = vt_response['country']
+		if c:
+			c = c.upper()
 	except:
 		return ""
 	return c
@@ -73,7 +77,7 @@ def get_domain_resolutions(ip):
 	try:
 		resolutions = vt_response['resolutions']
 		for resolution in resolutions:
-			resolution_pairs.append( ( resolution['hostname'], resolution['last_resolved'] ) )
+			resolution_pairs.append( ( resolution['hostname'].upper(), resolution['last_resolved'] ) )
 	except:
 		return []
 	return resolution_pairs
@@ -97,7 +101,7 @@ def get_detected_urls(ip):
 	try:
 		samples = vt_response['detected_urls']
 		for sample in samples:
-			associated_samples.append( ( sample['url'], sample['scan_date'] , sample['positives'] ) )
+			associated_samples.append( ( sample['url'].lower(), sample['scan_date'] , sample['positives'] ) )
 	except:
 		return []
 	return associated_samples
