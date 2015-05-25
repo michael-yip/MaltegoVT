@@ -25,6 +25,7 @@ def sample_lookup(hash):
 		hash_parameters = {'resource': hash, 'apikey': API_KEY}
 		response = urllib.urlopen('%s?%s' % (file_url, urllib.urlencode(hash_parameters))).read()
 		response_dict = json.loads(response)
+
 		
 		# Cache results
 		dump_cache(hash, response_dict)

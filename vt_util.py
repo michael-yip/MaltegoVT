@@ -49,8 +49,9 @@ def garbage_collect():
 			return
 		cache_files = [ f for f in listdir(CACHE_PATH) if isfile(join(CACHE_PATH, f)) ]
 		for cache_file in cache_files:
-			if not is_modified_today(cache_file):
-				os.remove(cache_file)
+			path_to_file = join(CACHE_PATH, cache_file)
+			if not is_modified_today(path_to_file):
+				remove(path_to_file)
 		# Touch garbage collect mutex
 		open('gc', 'a').close()
 	except:
