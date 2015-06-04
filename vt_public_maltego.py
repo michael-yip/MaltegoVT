@@ -104,7 +104,7 @@ def to_entity(query_result):
 	# Subdomains
 	if entity_type == "subdomains":
 		for website in values:
-			me.addEntity("maltego.Website", website)
+			me.addEntity("maltego.Domain", website)
 
 	# Location
 	if entity_type == "location":
