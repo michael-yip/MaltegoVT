@@ -1,4 +1,4 @@
-# MaltegoVTPublic
+# ThreatMinerVT
 A set of Maltego transforms for Virustotal Public API v2.0.   
 
 This set has the added functionality of caching VT queries on a daily basis so to speed up resolutions in Maltego.  
