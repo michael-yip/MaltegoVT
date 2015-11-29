@@ -19,7 +19,7 @@ Functions available:
   get_as_owner  
   get_asn  
   get_domain_resolutions  
-  get_detected_urls
+  get_detected_urls  
   get_domain_resolutions  
   
 3) File (below functions are merged into one transform to enrich a given SHA256):  
