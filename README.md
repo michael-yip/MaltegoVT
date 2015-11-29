@@ -32,7 +32,7 @@ Functions available:
   + VirusTotal Public API key
 
 = Installation (using the Maltego configuration file) =  
-  1) Place content from this reposition in the path C:/Maltego Transforms/MaltegoVTPublic/  
+  1) Place content from this reposition in the path C:/Maltego Transforms/MaltegoVTPublic/ (please also see Note 2 below)  
   2) Open Maltego and import the configuration file named "MaltegoVTPub.mtz"  
   3) Place your VirusTotal API key in vt_util.py
 
